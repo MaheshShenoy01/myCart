@@ -1,0 +1,489 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.) styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+         <link rel="stylesheet" href="styles/loginUser.css">
+        <!-- endbuild -->
+    </head>
+
+    <body ng-app="myCartApp" ng-controller="loginUserController">
+        <!--[if lte IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. 
+            Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <header class='mainCatalogue' >    
+            
+
+
+            <nav id="myNavbar" class="nav navbar-default navbar-fixed-top" role="navigation" >
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                         <a class="navbar-brand" href="#"> <img src="images/companyLogo.JPG" class="img-responsive visible-xs" alt="Company logo" id="companyLogo"> </a>
+                    </div>  
+
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="nav navbar-nav ">
+                        <li id="States">
+                            <input list="states" value="Bangalore" />
+                            <datalist id="states">
+                                <option value="Bangalore" />
+                                <option value="Delhi NCR" />
+                                <option value="Chennai" />
+                                <option value="Cochin" />
+                                <option value="Mumbai" />
+                            </datalist>
+                        </li>
+                        <li>
+                            <a href="#" class="glyphicon glyphicon-earphone"> 18601231000</a>
+                        </li>
+                        <li>
+                            <a href="#" class="fa fa-truck"> Check Delivery Timings
+                            <span class="glyphicon glyphicon-triangle-bottom"></span>
+                            </a>
+                        </li>
+                        <li ><a href="#" >Free delivery for orders Rs. 1000 and above</a></li>
+                        <li id="loginNav">
+                            <a ng-click="toggleModal()" href="#">Login</a>
+                          
+                        </li>
+
+                        <li id="signUpNav">
+                            <a href="#">Sign Up</a>
+                        </li>
+                    </ul>
+                     
+                    <!-- /.navbar-collapse -->
+                </div>
+                </div>
+                <!-- /.container -->
+            </nav>
+
+     
+  <!-- your cart circle -->
+            <div class="container-fluid visible-xs">
+
+                    <li class="yourCart" ng-mouseover="show=true" ng-mouseleave="show=false">
+                       <a ><span  class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a> 
+                         <div ng-show="show" class="container-fluid" id="myCart">
+                           
+                            <div class="img-container" ng-repeat="data in mainBasket track by $index">
+                                
+                                <img class="img-responsive" ng-src="{{data.image}}" alt="" >
+                                <p>{{data.name}}</p>
+                                <p>{{data.price}}</p>
+                            </div>
+
+                             <div>Your Items:{{mainBasket.length}}</div>
+                             <div>Total:{{MaintotalPrice}}₹</div>
+                             
+                             <button  class="btn btn-success pull-right" id="checkOut">CheckOut</button>
+
+                        </div>
+                     </li>
+                </div>
+
+
+            <!-- Page Content -->
+            <div class="container-fluid" id="subheader">
+                <div class="row ">
+                    <div class="col-sm-4 ">
+                        <img class="img-responsive visible-lg" src="images/companyLogo.JPG" alt="myCart.com" id="logo">
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 ">
+                        <div class="pull-right visible-lg">
+
+                           <li id="yourCart" ng-mouseover="show=true" ng-mouseleave="show=false">
+                       <a >Your Cart <span  class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a> 
+                         <div ng-show="show" class="container-fluid" id="myCart">
+                           
+                            <div class="img-container" ng-repeat="data in mainBasket track by $index">
+                                
+                                <img class="img-responsive" ng-src="{{data.image}}" alt="" >
+                                <p>{{data.name}}</p>
+                                <p>{{data.price}}</p>
+                            </div>
+
+                             <div>Your Items:{{mainBasket.length}}</div>
+                             <div>Total:{{MaintotalPrice}}₹</div>
+                             
+                             <button  class="btn btn-success pull-right" id="checkOut">CheckOut</button>
+
+                        </div>
+                     </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>                 
+        <!--Main navs shop offers etc -->         
+        <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3">
+
+                                    
+                                <div class="btn-group btn-block submenu visible-xs">
+                                  <button class="col-xs-10  btn btn-lg btn-success">Shop</button>
+                                 
+                                  <button class="col-xs-2  btn btn-lg btn-success dropdown-toggle"
+                                          data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                  </button>
+                                 
+                                  <ul class="dropdown-menu btn-block ">
+                                      <li> <a ui-sref="fruits({fparams:'fruits'})" class="list-group-item">Fruits</a></li>
+                                      <li><a ui-sref="vegetables({fparams:'vegetables'})" class="list-group-item">Vegetables</a></li>
+                                      <li><a ui-sref="Groceries({fparams:'Groceries'})" class="list-group-item">Groceries</a></li>
+                                      <li><a ui-sref="snacks({fparams:'snacks'})" class="list-group-item">Bread Diary & Eggs</a></li>
+                                      <li></li>
+                                      </ul>
+                                    </ul>
+                                </div>
+                
+
+
+
+
+
+
+                                    <div class="btn-success submenu visible-lg"><p>Shop</p>
+                                    <div class="list-group ">
+                                        <a ui-sref="fruits({fparams:'fruits'})" class="list-group-item">Fruits</a>
+                                        <a ui-sref="vegetables({fparams:'vegetables'})" class="list-group-item">Vegetables</a>
+                                        <a ui-sref="Groceries({fparams:'Groceries'})" class="list-group-item">Groceries</a>
+                                        <a ui-sref="snacks({fparams:'snacks'})" class="list-group-item">Bread Diary & Eggs</a>
+                                        <a href="#/angShoppingCart/fruits" class="list-group-item">Beverages</a>
+                                        <a href="#/angShoppingCart/vegetables" class="list-group-item">Personal Care</a>
+                                        <a href="#/angShoppingCart/Groceries" class="list-group-item">HouseHold</a>
+                                        <a href="#/angShoppingCart/snacks" class="list-group-item">Meat</a>
+                                    </div>
+                                    </div>
+                        </div>
+
+                 <div class="col-md-9">
+        <div class="container-fluid visible-lg">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="btn-warning submenu">
+                        <p>Offers</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-danger submenu">
+                        <p>New Arrivals</p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="btn-primary submenu">
+                        <p>Great Offers</p>
+                    </div>
+                </div>
+                <div class="col-md-2 ">
+                    <div class="btn-success text-right submenu">
+                        <p>Shopby list</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+        <div class="container-fluid">
+
+             <div class="ui-view"> 
+            <div id="carousel1" class="carousel slide effect2 visible-lg" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img alt="Bootstrap template" src="http://bigbasket.com/media/uploads/banner_images/HUL_homepage_revised.jpg">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="Bootstrap template" src="http://bigbasket.com/media/uploads/banner_images/770x255_22222.jpg">
+                        <div class="carousel-caption">
+                            <div class="col-lg-12 text-center v-center" style="font-size: 39pt;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="Bootstrap template" src="http://bigbasket.com/media/uploads/banner_images/happy_chef_banner_rev_21jul.jpg">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="Bootstrap template" src="http://bigbasket.com/media/uploads/banner_images/Nestea-Web-Banner-2_2.jpg">
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-pills nav-justified">
+                    <li data-target="#carousel1" data-slide-to="0" class="active">
+                        <a href="#">Special Offers</a>
+                    </li>
+                    <li data-target="#carousel1" data-slide-to="1">
+                        <a href="#">Knor soups</a>
+                    </li>
+                    <li data-target="#carousel1" data-slide-to="2">
+                        <a href="#">Happy Chef Offers</a>
+                    </li>
+                    <li data-target="#carousel1" data-slide-to="3">
+                        <a href="#">Nest Tea Offers</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+ <!-- end of submenu holding green shop bar and offers,discounts and new arrivals  -->
+           
+             
+       
+        <!-- end of main catalogue div -->
+        <div class="row ">
+            <div class="col-md-4 col-sm-6 hero-feature ">
+                <div class="thumbnail">
+                    <img src="http://bigbasket.com/media/uploads/banner_images/bb_coffee_300x180.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="http://bigbasket.com/media/uploads/banner_images/pani_puri_300x180_15aug.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="http://bigbasket.com/media/uploads/banner_images/fresho_organic_300x180.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row text-center well">
+            <hr/>
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <h3><a href="#" class="glyphicon glyphicon-time"> OnTime Delivery</a></h3>
+            </div>
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <h3><a href="#" class="glyphicon glyphicon-heart"> Healtheir & safe</a></h3>
+            </div>
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <h3><a href="#" class="glyphicon glyphicon-globe"> Imported Products</a></h3>
+            </div>
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <h3><a href="#" class="glyphicon glyphicon-leaf"> Fresh</a></h3>
+            </div>
+        </div>
+        <div class="row ">
+            <hr/>
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="http://bigbasket.com/media/uploads/banner_images/wEB_APP_BANNER-1.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="http://bigbasket.com/media/uploads/banner_images/recipes_mango_pickle_300x180_160415.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="http://njtoptenbeaches.org/wp-content/uploads/2013/01/social-media-logos.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row well">
+            <div class="col-md-9 col-sm-6 hero-feature">
+                <h3>Online grocery India myCart.com</h3>
+                <p> is the first comprehensive online grocery store in Bangalore, Mumbai, Delhi, Mysore, Chennai, Hyderabad and Pune. With over 14,000 products and 1000 brands in our grocery list you will find everything you are looking for. Right from fresh fruits and vegetables, rice and daals, spices and seasonings to packaged bread, bakery and dairy products and other branded foods – we have it all. Save time and money, shop at Bigbasket.com - the best online fruit & vegetable store, meat store, provisions store - an all encompassing online groceries store of India.</p>
+            </div>
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail small">
+                    <h5 class="text-right">Customer's Speak</h5>
+                    <img src="http://www.clarabridge.com/wp-content/uploads/2014/04/Why_Need_VOC_Program.jpg" alt="">
+                </div>
+            </div>
+
+        </div>
+
+
+        </div>  
+
+        <footer class="row">
+        <div class="row">
+            <div class="cards-wrapper ">
+                <ul class="menu">
+                    <li class="PaymentOptions col-xs-10 col-lg-3">PaymentOptions | Cash on Delivery</li>
+                   
+                    <li class="visa ">
+                        <a href="#"></a>
+                    </li>
+                    <li class="mastercard">
+                        <a href="#"></a>
+                    </li>
+                    <li class="amex">
+                        <a href="#"></a>
+                    </li>
+                    <li class="secure ">
+                        <a href="#"></a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+            <div class="row" id="footerSubfooter1">
+                <hr/>
+                <div class="list-group">
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#" class="list-group-item" id="footer-list-group1">
+                            <h4 class="list-group-item-heading">Most Popular Brands ALL BRANDS</h4>
+                            <p class="list-group-item-text">Amul</p>
+                            <p class="list-group-item-text">Haldirams</p>
+                            <p class="list-group-item-text">Tropicana</p>
+                            <p class="list-group-item-text">Kelloggs</p>
+                            <p class="list-group-item-text">Dettol</p>
+                            <p class="list-group-item-text">MTR</p>
+                            <p class="list-group-item-text">Bru</p>
+                            <p class="list-group-item-text">McCain</p>
+                            <p class="list-group-item-text">Ariel</p>
+                            <p class="list-group-item-text">Britannia</p>
+                            <p class="list-group-item-text">Nescafe</p>
+                            <p class="list-group-item-text">Colgate</p>
+                            <p class="list-group-item-text">Horlicks</p>
+                            <p class="list-group-item-text">Galaxy</p>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#" class="list-group-item" id="footer-list-group2">
+                            <h4 class="list-group-item-heading">Most Popular Categories</h4>
+                            <p class="list-group-item-text">Fruits & Vegetables</p>
+                            <p class="list-group-item-text">Vegetables</p>
+                            <p class="list-group-item-text">Basmati Rice</p>
+                            <p class="list-group-item-text">Green Tea </p>
+                            <p class="list-group-item-text">OTC Cheese </p>
+                            <p class="list-group-item-text">Dry Fruits</p>
+                            <p class="list-group-item-text">Staples</p>
+                            <p class="list-group-item-text">Sunflower Oils</p>
+                            <p class="list-group-item-text">Energy Drinks</p>
+                            <p class="list-group-item-text">Soft Drinks</p>
+                            <p class="list-group-item-text">Olive Oils</p>
+                            <p class="list-group-item-text">Grocery</p>
+                            <p class="list-group-item-text">Chocolates</p>
+                            <p class="list-group-item-text">Liquid Soaps & Bars Meat</p>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <a href="#" class="list-group-item" id="footer-list-group3">
+                            <h4 class="list-group-item-heading"> Information & Services  </h4>
+                            <p class="list-group-item-text">About us</p>
+                            <p class="list-group-item-text">Customer Speak</p>
+                            <p class="list-group-item-text">In the Media</p>
+                            <p class="list-group-item-text">Green</p>
+                            <p class="list-group-item-text">BigBasket Privacy Policy</p>
+                            <p class="list-group-item-text">Terms & Conditions</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" id="faqs">
+                    If you have a question about our service or have an issue to report Write to us
+                    <br/> FAQs Contact Us Follow us
+                    <h2><a href="#"><span class="fa fa-google-plus"></span></a>
+            <a href="#"><span class="fa fa-facebook"></span></a>
+            <a href="#"><span class="fa fa-whatsapp"></span></a>
+            <a href="#"><span class="fa fa-twitter"></span></a>
+            <a href="#"><span class="fa fa-instagram"></span></a>
+           <a href="#"><span class="fa fa-yahoo"></span></a></h2>
+                </div>
+            </div>
+            <div class="row" id="footerSubfooter2">
+                <br/>
+                <br/>
+                <br/>
+                <p>myCart.com is India's largest Online Grocery Store and Online Supermarket. With over 14,000 products from over 1000 brands Bigbasket.com is currently present in Bangalore, Hyderabad, Mumbai, Pune, Chennai, Delhi-NCR, and Mysore with plans to expand to other cities soon. Our online food store offers a variety of products across various categories like : Fresh Fruits & Vegetables, Grocery & Staples, Beverages, Bread,Dairy & Egg products, Branded Foods, Meat, Personal Care and Household products</p>
+                <hr/>
+            </div>
+            <div class="row">
+                <r/>
+                <br/>
+                <br/>
+                <div class="text-center" id="text-center-footer">Copyright © 2011-2015 Supermarket Grocery Supplies Pvt Ltd</div>
+            </div>
+
+
+             <modal-dialog  show='modalShown' id="loginmodal" width='500px'>
+      
+    </modal-dialog>
+
+
+        </footer>
+        <!-- /.container -->
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+        <script>
+        ! function(A, n, g, u, l, a, r) {
+            A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+                    (A[l].q = A[l].q || []).push(arguments)
+                }, A[l].l = +new Date, a = n.createElement(g),
+                r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+        }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-XXXXX-X');
+        ga('send', 'pageview');
+        </script>
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/ui-router/release/angular-ui-router.min.js"></script>
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+       <!--  <link href="bower_components/normalize.css/normalize.css" rel="stylesheet"/>-->
+           <script src="http://angular-ui.github.com/bootstrap/ui-bootstrap-tpls-0.2.0.js"></script>
+       <link rel="stylesheet" href="styles/loginUser.css"> 
+        <!-- endbowe    r -->
+        <!-- endbuild -->
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    
+
+        <!-- catalogue js files -->
+        <script src="scripts/catalogueModule/catalogueModule.js"></script>
+        <script src="scripts/catalogueModule/controllers/mainCatalogueController.js"></script>
+        <script src="scripts/catalogueModule/factories/catalogueDataFactory.js"></script>
+        <script src="scripts/catalogueModule/directives/catalogueDirective.js"></script>
+        <script src="scripts/catalogueModule/directives/catalogueDropDownList.js"></script>
+        <script src="scripts/catalogueModule/directives/cataloguePanelDirective.js"></script>
+        <script src="scripts/catalogueModule/controllers/cataloguePanelController.js"></script>
+        <script src="scripts/loginModule/loginModule.js"></script>
+        <script src="scripts/loginModule/controllers/loginUserController.js"></script>
+        <script src="scripts/loginModule/directives/loginUserDirective.js"></script>
+        
+        <script src="scripts/mainModule/Controllers/app.js"></script>
+        
+        <!-- endbuild -->
+    </body>
+
+</html>
